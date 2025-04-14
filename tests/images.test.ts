@@ -10,7 +10,7 @@ test('image 1', async (t) => {
         const helper = new LLMHelper().model(model);
         const out1 = await helper
             .prompt('What is the make, model, and color of this car?')
-            .image(await loadImageToBase64Url('../examples/car.jpeg'))
+            .image(await loadImageToBase64Url('../tests/images/car.jpeg'))
             .run();
         console.log(out1.output);
         assert.ok(out1.output.includes('red'));
@@ -23,7 +23,7 @@ test('image ocr', async (t) => {
         const helper = new LLMHelper().model(model);
         const out1 = await helper
             .prompt('Read all of the text from this image')
-            .image(await loadImageToBase64Url('../examples/receipt2.jpeg'))
+            .image(await loadImageToBase64Url('../tests/images/receipt2.jpeg'))
             .run();
         console.log(out1.output);
         assert.ok(out1.output.includes('SUBTOTAL'));
@@ -36,8 +36,8 @@ test('image multiple', async (t) => {
         const helper = new LLMHelper().model(model);
         const out1 = await helper
             .prompt('The person in the first image is Albert Einstein. Describe the second image.')
-            .image(await loadImageToBase64Url('../examples/einstein_head.jpg'))
-            .image(await loadImageToBase64Url('../examples/einstein_group.jpg'))
+            .image(await loadImageToBase64Url('../tests/images/einstein_head.jpg'))
+            .image(await loadImageToBase64Url('../tests/images/einstein_group.jpg'))
             .run();
         console.log(out1.output);
     }
