@@ -19,7 +19,7 @@
     "@anthropic-ai/sdk": "^0.29.0",
     "@google/generative-ai": "^0.21.0",
     "@huggingface/inference": "^2.8.0",
-    "@mozilla/readability": "^0.5.0",
+    "@mozilla/readability": "^0.6.0",
     "better-sqlite3": "^11.2.1",
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
