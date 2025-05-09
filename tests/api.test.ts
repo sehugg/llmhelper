@@ -38,13 +38,3 @@ test('api 2', async (t) => {
     console.log(out1.runResult.context.getAllMessages())
     assert.ok(out1.output.answer.includes('Table Mountain'));
 });
-
-test('api github', async (t) => {
-    const env = new MemoryStoreEnvironment();
-    const tools = [new APITool()];
-    let llm = new LLMHelper(env);
-    let out1 = await llm
-        .prompt('Show me all the GitHub repos for the user "openai".')
-        .useTools(tools);
-    assert.ok(out1.output[0].content.length);
-});

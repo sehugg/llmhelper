@@ -34,9 +34,9 @@ async function fetchFromURL(url: string) {
         const originalDocument = new JSDOM(html);
         let article = new Readability(originalDocument.window.document).parse();
         if (!article) throw new Error('No article found');
-        const title = article.title;
+        const title = article.title+"";
         const text = article.textContent;
-        const doc = new JSDOM(article.content).window.document;
+        const doc = new JSDOM(article.content+"").window.document;
         const ahrefs = doc.getElementsByTagName('a');
         const links = Array.from(ahrefs).map(a => { return { url: a.href, text: a.innerText } });
         return { url: newUrl, title, text, links };
