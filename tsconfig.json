@@ -4,13 +4,13 @@
             "es2023"
         ],
         "outDir": "./dist",
-        "module": "node16",
+        "module": "NodeNext",
+        "moduleResolution": "nodenext",
         "declaration": true,
         "target": "es2022",
         "strict": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
-        "moduleResolution": "node16",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
     },

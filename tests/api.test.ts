@@ -10,7 +10,7 @@ test('api', async (t) => {
     const env = new MemoryStoreEnvironment();
     const tools = [new APITool()];
     const step = await createRunnable({
-        prompt: 'Get a "safe" joke via JokeAPI.',
+        prompt: 'Get a "pun" joke via JokeAPI.',
         format: {},
         output: 'joke.json',
         tools
