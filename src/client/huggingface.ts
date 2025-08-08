@@ -1,8 +1,25 @@
 import { zodToJsonSchema } from "zod-to-json-schema";
-import { LLMApi, LLMChatResult, LLMChatInput, LLMModelConfig } from "../types.js";
+import { LLMApi, LLMChatResult, LLMChatInput, LLMModelConfig, LLMMessage } from "../types.js";
 import { coalesceMessages } from "../llm.js";
 
 // https://www.npmjs.com/package/@huggingface/inference
+
+function convertToHuggingFaceMessage(message: LLMMessage): any {
+  // HuggingFace expects messages similar to OpenAI format
+  // For now, convert images to text description since HF doesn't support images yet
+  return {
+    role: message.role === 'tool' ? 'assistant' : message.role,
+    content: typeof message.content === 'string' ? message.content : message.content.map(part => {
+      if (part.type === 'text') {
+        return part.text;
+      } else if (part.type === 'image') {
+        return `[Image: ${part.imageUrl}]`; // Fallback for unsupported images
+      } else {
+        throw new Error('Unsupported message part type');
+      }
+    }).join(' ')
+  };
+}
 
 export class HuggingFaceAPIImpl implements LLMApi {
 
@@ -36,6 +53,7 @@ export class HuggingFaceAPIImpl implements LLMApi {
             let messages = prompt.messages;
             messages = [{ role: 'user', content: systemMessage }, ...messages];
             messages = coalesceMessages(messages);
+            const convertedMessages = messages.map(convertToHuggingFaceMessage);
 
             if (prompt.tools) {
                 throw new Error('Tools not supported yet'); // TODO
@@ -43,7 +61,7 @@ export class HuggingFaceAPIImpl implements LLMApi {
             
             const response = await hf.chatCompletion({
                 model: this.modelConfig.model,
-                messages,
+                messages: convertedMessages,
                 temperature: this.modelConfig.temperature,
                 top_p: this.modelConfig.top_p,
                 // TODO tools: prompt.tools?.map(t => convertToOpenAITool(t)),

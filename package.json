@@ -15,9 +15,10 @@
   "scripts": {
     "build": "tsc",
     "lint": "tsc --noEmit",
-    "test": "LLM_DEFAULT_MODEL=testing c8 --reporter html node --test --enable-source-maps --loader ts-node/esm tests/**/*.test.ts",
+    "test": "LLM_DEFAULT_MODEL=testing c8 --reporter html node --test --enable-source-maps --loader ts-node/esm $(find tests -name '*.test.ts' ! -name 'benchmarks.test.ts')",
     "test-one": "LLM_DEFAULT_MODEL=testing node --test --enable-source-maps --loader ts-node/esm",
     "test-local": "LLM_DEFAULT_MODEL=local node --test --enable-source-maps --loader ts-node/esm",
+    "test-benchmarks": "LLM_DEFAULT_MODEL=testing node --test --enable-source-maps --loader ts-node/esm tests/benchmarks.test.ts",
     "run": "node --enable-source-maps --loader ts-node/esm",
     "prepublishOnly": "npm run build"
   },
