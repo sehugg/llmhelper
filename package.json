@@ -80,7 +80,7 @@
     "@mozilla/readability": "^0.6.0",
     "dockerode": "^4.0.2",
     "@types/dockerode": "^3.3.31",
-    "diff": "^7.0.0",
+    "diff": "^8.0.3",
     "better-sqlite3": "^11.2.1",
     "@types/better-sqlite3": "^7.6.11",
     "pdfreader": "^3.0.5",
